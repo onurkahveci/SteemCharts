@@ -113,7 +113,7 @@ $btcdollar = floatval($btcdollar);
   </form>
 </nav>
 <?php
-require 'cashcalculator.php';
+require 'graphdrawer.php';
 ?>
 </center>
 
