@@ -22,9 +22,9 @@ if(isset($_GET['check'])){
 	include 'modules/converts.php';
 	$numberofposts = 0;
 	$numberofposts2 = 0;
+	$tempnumber = 0;
 	?>
 	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -41,8 +41,9 @@ if(isset($_GET['check'])){
 
 	$numberofposts ++;
     $id1 = $person1['id'];
+    $url = $person1['url'];
 	$children = $person1['children'];
- echo "['".$numberofposts."', ".$children."],";
+ echo "['".$url."', ".$children."],";
 	}
 	}
 		
@@ -50,16 +51,33 @@ if(isset($_GET['check'])){
         ]);
 
         var options = {
-          chart: {
             title: 'Number of Comments',
             subtitle: 'Charts of Number of Comments for Last Posts',
-          }
+			hAxis:{textStyle : {
+            fontSize: 0 // or the number you want
+        }}
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
+      
+	   google.visualization.events.addListener(chart, 'select', selectHandler); 
+
+    function selectHandler(e)     {  
+	
+	if(data.getValue(chart.getSelection()[0].row, 0).length > 0)
+	
+	{
+		
+		urllast = 'http://www.steemit.com'+data.getValue(chart.getSelection()[0].row, 0);
+		
+		window.open(urllast,'_blank');
+		}
+	
+	
+	}
+	  }
     </script>
 
 	
