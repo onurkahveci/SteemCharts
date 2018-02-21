@@ -24,15 +24,15 @@ if(isset($_GET['check'])){
 	$numberofposts2 = 0;
 	?>
 	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Post Number', 'Number Of Comments',],
-		  
-		 <?php
+          ['Post', 'Comments'],
+          <?php
 	// Create the loop //
 	foreach ($data as $person1) {
 			$author = $person1['author'];
@@ -49,17 +49,18 @@ if(isset($_GET['check'])){
         ]);
 
         var options = {
-          title: 'Comments per Posts',
-          curveType: 'function',
-          legend: { position: 'bottom' }
+          chart: {
+            title: 'Number of Comments',
+            subtitle: 'Charts of Number of Comments for Last Posts',
+          }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-        chart.draw(data, options);
+        chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     </script>
-	
+
 	
 	<?php
 	// Create the loop //
@@ -142,7 +143,8 @@ if(isset($_GET['check'])){
 </table>
 </div>
 </div>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+       <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+
 
 ';
 	;
