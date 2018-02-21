@@ -1,3 +1,5 @@
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
 <?php
 
 include 'modules/currentvalues.php';
@@ -26,6 +28,8 @@ $btcdollar = floatval($btcdollar);
 <body>
 
 <header>
+  
+ <!--Load the AJAX API-->
 
 	<!-- navbar code starts-->
 	<nav class="navbar navbar-default col-md-8 col-sm-8 col-xs-12 col-lg-8">
@@ -112,5 +116,6 @@ $btcdollar = floatval($btcdollar);
 require 'cashcalculator.php';
 ?>
 </center>
+
 </body>
 </html>

@@ -1,6 +1,5 @@
-
 <?php
-    $error = false;
+	$error = false;
     $payment = 0;
     error_reporting(0);
 if(isset($_GET['check'])){
@@ -14,24 +13,66 @@ if(isset($_GET['check'])){
 	}
 	// both inputs filled, then give the result //
     if($error == false){
-    $myself_url = 'https://api.steemjs.com/get_discussions_by_blog?query={"tag":"'.$meme.'","limit":"50"}';
+    $myself_url = 'https://api.steemjs.com/get_discussions_by_blog?query={"tag":"'.$meme.'","limit":"100"}';
 	$json= file_get_contents($myself_url);
     $data = json_decode($json,true);
 	// GET data from https://coinmarketcap.com/coins/views/all/ //
 	include 'currentvalues.php';
 	include 'modules/currentvalues.php';
 	include 'modules/converts.php';
+	$numberofposts = 0;
+	$numberofposts2 = 0;
+	?>
+	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Post Number', 'Number Of Comments',],
+		  
+		 <?php
 	// Create the loop //
-    foreach ($data as $person1) {
+	foreach ($data as $person1) {
+			$author = $person1['author'];
+
+		if($author==$meme){
+
+	$numberofposts ++;
+	$children = $person1['children'];
+ echo "['".$numberofposts."', ".$children."],";
+	}
+	}
+		
+		?>
+        ]);
+
+        var options = {
+          title: 'Comments per Posts',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+	
+	
+	<?php
+	// Create the loop //
+	foreach ($data as $person1) {
 	try
 	{
 	$author = $person1['author'];
     $benef1 = $person1['parent_permlink'];
-	
+    $children = $person1['children'];
+	$numberofposts = $numberofposts + 1;
+
 	if(!($person1["pending_payout_value"] == "0.00 SBD") and ($author==$meme)){
 
-		 
-		
     $total_amount_mine = str_replace(" SBD", "", $person1["pending_payout_value"]);
 	$payment = $payment + $total_amount_mine;
 	// Steemit curator cut //
@@ -65,11 +106,15 @@ if(isset($_GET['check'])){
 
 	}   
 	else{
+		
 		echo '<div class="alert alert-danger" role="alert">Prices direct fetch from coincapmarket.com ( live )</div>';
 		echo '<div class="alert alert-success" role="alert"><strong>Total pending payouts</strong>: '.$payment.'. STU</div>';
+		echo '<div class="alert alert-success" role="alert"><strong>Number of analyzed posts</strong>: '.$numberofposts.'.</div>';
+		
 		echo '<div class="alert alert-success" role="alert"><strong>Total amount of SBD</strong>: '.$payment_end_mine.'. SBD</div>';
 		echo '<div class="alert alert-success" role="alert"><strong>Total amount of SP</strong>: '.$steem_power.'. SP</div>';
 	echo '<div class="col-md-10 col-sm-10 col-xs-12 col-lg-10 margin-auto-float-none"> 
+	
 <div class="table-responsive">
   <table class="table green-table">
   <thead>
@@ -96,7 +141,10 @@ if(isset($_GET['check'])){
   </tbody>
 </table>
 </div>
-</div>';
+</div>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+';
 	;
     }
 	}
