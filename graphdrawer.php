@@ -40,6 +40,7 @@ if(isset($_GET['check'])){
 		if($author==$meme){
 
 	$numberofposts ++;
+    $id1 = $person1['id'];
 	$children = $person1['children'];
  echo "['".$numberofposts."', ".$children."],";
 	}

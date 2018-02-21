@@ -1,3 +1,3 @@
-# Steem-Analyzer
+# SteemCharts
 
 - Will be edited soon.
