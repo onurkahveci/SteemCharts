@@ -73,7 +73,7 @@ if(!($person1["pending_payout_value"] == "0.000 SBD")){echo "['".$url."', '".$Na
 formatter.format(data, [0, 1, 2, 3, 4]);
 var view = new google.visualization.DataView(data);
 view.setColumns([0, 2, 3, 4]); // Create a view with the first column only.
-table.draw(view, {allowHtml: true, showRowNumber: true, width: '800px', height: '400px'});
+table.draw(view, {allowHtml: true, showRowNumber: true, width: '80%', height: '400px'});
 
 	  }
     </script>
@@ -140,7 +140,7 @@ table.draw(view, {allowHtml: true, showRowNumber: true, width: '800px', height: 
 				echo'<div id="table_div"></div><br><br>';
 
 	echo '
-       <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+       <div id="columnchart_material" style="width: 80%; height: 500px;"></div>
 
 
 ';

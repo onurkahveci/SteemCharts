@@ -71,7 +71,7 @@ $steem_power = $pending_payout_value_insbd / $steemprice;
 formatter.format(data, [0, 1, 2, 3]);
 var view = new google.visualization.DataView(data);
 view.setColumns([0, 2, 3]); // Create a view with the first column only.
-table.draw(view, {allowHtml: true, showRowNumber: true, width: '800px', height: '400px'});
+table.draw(view, {allowHtml: true, showRowNumber: true, width: '80%', height: '400px'});
 
 	  }
     </script>
