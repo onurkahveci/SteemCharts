@@ -59,7 +59,7 @@ $btcdollar = floatval($btcdollar);
 </header>
 <center>
 <nav class="navbar navbar-light bg-faded">
-  <form  action="author.php" method="GET" class="form-inline">
+  <form method="GET" class="form-inline">
     <input name="author" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Your username" >	
     <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit" name="check">Give it to me</button>
   </form>

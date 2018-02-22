@@ -16,7 +16,7 @@ $btcdollar = floatval($btcdollar);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>SteemCharts</title>
+    <title>Steem Challenger</title>
 	<link href="style.css">
 
     <!-- Bootstrap -->
@@ -59,13 +59,13 @@ $btcdollar = floatval($btcdollar);
 </header>
 <center>
 <nav class="navbar navbar-light bg-faded">
-  <form  action="author.php" method="GET" class="form-inline">
-    <input name="author" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Your username" >	
+  <form method="GET" class="form-inline">
+    <input name="myself" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Your username" >	
     <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit" name="check">Give it to me</button>
   </form>
 </nav>
 <?php
-require 'modules/authordetails.php';
+require 'modules/rewards.php';
 ?>
 </center>
 <footer></br></br><center>current version: 0.1.0 beta, by <a href="https://utopian.io/@onurkahveci/" target="_blank">@onurkahveci</a></center></footer>
