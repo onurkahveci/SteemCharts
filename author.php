@@ -48,9 +48,10 @@ $btcdollar = floatval($btcdollar);
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a data-toggle="tab" href="#sectionA">Page1</a></li>
-        <li><a data-toggle="tab" href="#sectionB">Page2</a></li>
-        <li><a data-toggle="tab" href="#sectionC">Page3</a></li>
+        <li><a data-toggle="tab" href="/index.php">Home</a></li>
+        <li class="active"><a data-toggle="tab" href="/author.php">Author Analysis</a></li>
+        <li><a data-toggle="tab" href="/reward.php">Reward Analysis</a></li>
+        <li><a data-toggle="tab" href="/tag.php">Tag Analysis</a></li>
        </ul>
     </div>
   </div>
@@ -60,8 +61,8 @@ $btcdollar = floatval($btcdollar);
 <center>
 <nav class="navbar navbar-light bg-faded">
   <form method="GET" class="form-inline">
-    <input name="author" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Your username" >	
-    <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit" name="check">Give it to me</button>
+    <input name="author" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Username" >	
+    <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit">Analyse</button>
   </form>
 </nav>
 <?php

@@ -16,7 +16,7 @@ $btcdollar = floatval($btcdollar);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Steem Challenger</title>
+    <title>SteemCharts</title>
 	<link href="style.css">
 
     <!-- Bootstrap -->
@@ -48,9 +48,10 @@ $btcdollar = floatval($btcdollar);
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a data-toggle="tab" href="#sectionA">Page1</a></li>
-        <li><a data-toggle="tab" href="#sectionB">Page2</a></li>
-        <li><a data-toggle="tab" href="#sectionC">Page3</a></li>
+        <li><a data-toggle="tab" href="/index.php">Home</a></li>
+        <li><a data-toggle="tab" href="/author.php">Author Analysis</a></li>
+        <li><a data-toggle="tab" href="/reward.php">Reward Analysis</a></li>
+        <li class="active"><a data-toggle="tab" href="/tag.php">Tag Analysis</a></li>
        </ul>
     </div>
   </div>
@@ -60,12 +61,12 @@ $btcdollar = floatval($btcdollar);
 <center>
 <nav class="navbar navbar-light bg-faded">
   <form method="GET" class="form-inline">
-    <input name="myself" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Your username" >	
-    <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit" name="check">Give it to me</button>
+    <input name="tag" class="form-control mr-sm-2 margin-top-15" type="text" placeholder="Tag" >	
+    <button class="btn btn-outline-success my-2 my-sm-0 user-submit-button" type="submit">Analyse</button>
   </form>
 </nav>
 <?php
-require 'modules/rewards.php';
+require 'modules/tagdetails.php';
 ?>
 </center>
 <footer></br></br><center>current version: 0.1.0 beta, by <a href="https://utopian.io/@onurkahveci/" target="_blank">@onurkahveci</a></center></footer>

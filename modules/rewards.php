@@ -2,13 +2,13 @@
 	$error = false;
     $payment = 0;
     error_reporting(0);
-if(isset($_GET['check'])){
+if(true){
 	
-	$meme = $_GET['myself'];
+	$meme = $_GET['author'];
 	// if both inputs are empty give error //
 	if(empty($meme)){
 	$error = true;
-	$error_input = '<div class="alert alert-danger"><strong>WARNING!!! </strong>Please type username</div>';
+	$error_input = '<div class="alert alert-danger">Please type username to analyse</div>';
 	echo $error_input;
 	}
 	// both inputs filled, then give the result //
@@ -20,62 +20,59 @@ if(isset($_GET['check'])){
 	//include 'currentvalues.php';
 	include 'currentvalues.php';
 	include 'converts.php';
+	include 'sbdfiat.php';
+
 	$numberofposts = 0;
 	$numberofposts2 = 0;
 	$tempnumber = 0;
 	?>
 	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Post', 'Comments'],
-          <?php
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+		
+		data.addColumn('string', 'Post URL');
+        data.addColumn('string', 'Post');
+        data.addColumn('string', 'Author Reward Values in SBD');
+        data.addColumn('string', 'Author Reward Values in Steem Power');
+        
+		  data.addRows([
+		  <?php
 	// Create the loop //
 	foreach ($data as $person1) {
 			$author = $person1['author'];
 
-		if($author==$meme){
+$total_amount_mine = str_replace(" SBD", "", $person1["pending_payout_value"]);
+	
+	if(($total_amount_mine>0) and ($author==$meme)){
+		
+		$pending_payout_value_insbd = $total_amount_mine * 0.75 * 0.75 * 0.5;
+$steem_power = $pending_payout_value_insbd / $steemprice;
 
     $id1 = $person1['id'];
     $url = $person1['url'];
-	$children = $person1['children'];
- echo "['".$url."', ".$children."],";
+	$NameUrl= substr($url, strrpos($url, '/') + 1);
+
+ echo "['".$url."', '".$NameUrl."', '".$pending_payout_value_insbd."', '".$steem_power."'],";
 	}
 	}
 		
 		?>
-        ]);
+		   ]);
 
-        var options = {
-            title: 'Number of Comments',
-            subtitle: 'Charts of Number of Comments for Last Posts',
-			hAxis:{textStyle : {
-            fontSize: 0 // or the number you want
-        }}
-        };
 
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        var table = new google.visualization.Table(document.getElementById('table_div'));
 
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      
-	   google.visualization.events.addListener(chart, 'select', selectHandler); 
+	var formatter = new google.visualization.PatternFormat(
+    '<a href="http://www.steemit.com{0}" target="_blank">{1}</a>');
+formatter.format(data, [0, 1, 2, 3]);
+var view = new google.visualization.DataView(data);
+view.setColumns([0, 2, 3]); // Create a view with the first column only.
+table.draw(view, {allowHtml: true, showRowNumber: true, width: '50%', height: '50%'});
 
-    function selectHandler(e)     {  
-	
-	if(data.getValue(chart.getSelection()[0].row, 0).length > 0)
-	
-	{
-		
-		urllast = 'http://www.steemit.com'+data.getValue(chart.getSelection()[0].row, 0);
-		
-		window.open(urllast,'_blank');
-		}
-	
-	
-	}
 	  }
     </script>
 
@@ -101,7 +98,8 @@ if(isset($_GET['check'])){
 	// %50 - %50 POST END //
 	$payment_end_mine = $paymentsbd_mine_beneficaries / 2;
 	// Calculation to the fiat //
-	include 'modules/sbdfiat.php';
+	include 'sbdfiat.php';
+
 	$try_mine_total = intval($try_mine_total);
 	$dollar_mine_total = intval($dollar_mine_total);
 	$euro_mine_total = intval($euro_mine_total);
@@ -126,12 +124,12 @@ if(isset($_GET['check'])){
 	}   
 	else{
 		
-		echo '<div class="alert alert-danger" role="alert">Prices direct fetch from coincapmarket.com ( live )</div>';
+
 		echo '<div class="alert alert-success" role="alert"><strong>Total pending payouts</strong>: '.$payment.'. STU</div>';
-		echo '<div class="alert alert-success" role="alert"><strong>Number of analyzed posts</strong>: '.$numberofposts.'.</div>';
-		
 		echo '<div class="alert alert-success" role="alert"><strong>Total amount of SBD</strong>: '.$payment_end_mine.'. SBD</div>';
 		echo '<div class="alert alert-success" role="alert"><strong>Total amount of SP</strong>: '.$steem_power.'. SP</div>';
+			echo'	    <div id="table_div"></div><br><br>';
+
 	echo '<div class="col-md-10 col-sm-10 col-xs-12 col-lg-10 margin-auto-float-none"> 
 	
 <div class="table-responsive">
@@ -142,9 +140,8 @@ if(isset($_GET['check'])){
       <th scope="col">Bitcoin</th>
       <th scope="col">Ethereum</th>
       <th scope="col">STEEM</th>
-      <th scope="col">American dollars</th>
+      <th scope="col">USD</th>
       <th scope="col">Euro</th>
-	  <th scope="col">TRY</th>
     </tr>
   </thead>
   <tbody>
@@ -155,13 +152,11 @@ if(isset($_GET['check'])){
       <td>'.$steem_mine_total.'</td>
       <td>'.$dollar_mine_total.'</td>
       <td>'.$euro_mine_total.'</td>
-	  <td>'.$try_mine_total.'</td>
     </tr>
   </tbody>
 </table>
 </div>
 </div>
-       <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
 
 
 ';

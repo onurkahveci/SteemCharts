@@ -4,11 +4,11 @@
     error_reporting(0);
 if(true){
 	
-	$meme = $_GET['author'];
+	$meme = $_GET['tag'];
 	// if both inputs are empty give error //
 	if(empty($meme)){
 	$error = true;
-	$error_input = '<div class="alert alert-danger">Please type username to analyse</div>';
+	$error_input = '<div class="alert alert-danger">Please type tag to analyse</div>';
 	echo $error_input;
 	}
 	// both inputs filled, then give the result //
