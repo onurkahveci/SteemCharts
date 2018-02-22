@@ -36,8 +36,8 @@ if(true){
 		
 		data.addColumn('string', 'Post URL');
         data.addColumn('string', 'Post');
-        data.addColumn('string', 'Author Reward Values in SBD');
-        data.addColumn('string', 'Author Reward Values in Steem Power');
+        data.addColumn('number', 'Author Reward Values in SBD');
+        data.addColumn('number', 'Author Reward Values in Steem Power');
         
 		  data.addRows([
 		  <?php
@@ -56,7 +56,7 @@ $steem_power = $pending_payout_value_insbd / $steemprice;
     $url = $person1['url'];
 	$NameUrl= substr($url, strrpos($url, '/') + 1);
 
- echo "['".$url."', '".$NameUrl."', '".$pending_payout_value_insbd."', '".$steem_power."'],";
+ echo "['".$url."', '".$NameUrl."', ".$pending_payout_value_insbd.", ".$steem_power."],";
 	}
 	}
 		
