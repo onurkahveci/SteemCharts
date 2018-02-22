@@ -73,7 +73,7 @@ if(!($person1["pending_payout_value"] == "0.000 SBD")){echo "['".$url."', '".$Na
 formatter.format(data, [0, 1, 2, 3, 4]);
 var view = new google.visualization.DataView(data);
 view.setColumns([0, 2, 3, 4]); // Create a view with the first column only.
-table.draw(view, {allowHtml: true, showRowNumber: true, width: '50%', height: '50%'});
+table.draw(view, {allowHtml: true, showRowNumber: true, width: '800px', height: '400px'});
 
 	  }
     </script>
