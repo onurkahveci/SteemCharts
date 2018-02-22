@@ -20,11 +20,66 @@ if(true){
 	//include 'currentvalues.php';
 	include 'currentvalues.php';
 	include 'converts.php';
+	include 'sbdfiat.php';
 	$numberofposts = 0;
 	$numberofposts2 = 0;
 	$tempnumber = 0;
 	?>
 	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+         <script type="text/javascript">
+        google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+		
+		data.addColumn('string', 'Post URL');
+        data.addColumn('string', 'Post');
+        data.addColumn('number', 'Number of Comments');
+        data.addColumn('number', 'Number of Upvotes');
+        data.addColumn('number', 'Total Payout Value in SBD');
+        
+		  data.addRows([
+		  <?php
+	// Create the loop //
+	foreach ($data as $person1) {
+			$author = $person1['author'];
+	
+	if(($author==$meme)){
+
+    $id1 = $person1['id'];
+    $url = $person1['url'];
+    $comments = $person1['children'];
+    $netvotes = $person1['net_votes'];
+    $totalpayoutvalue = $person1['total_payout_value'];
+    $pending_payout_value = $person1['pending_payout_value'];
+	$total_amount_of_payout_value = str_replace(" SBD", "", $person1["total_payout_value"]);
+	$total_amount_of_pending_payout_value = str_replace(" SBD", "", $person1["pending_payout_value"]);
+	$NameUrl= substr($url, strrpos($url, '/') + 1);
+
+if(($person1["pending_payout_value"] == "0.000 SBD")){echo "['".$url."', '".$NameUrl."', ".$comments.", ".$netvotes.", ".$total_amount_of_payout_value."],";}
+if(!($person1["pending_payout_value"] == "0.000 SBD")){echo "['".$url."', '".$NameUrl."', ".$comments.", ".$netvotes.", ".$total_amount_of_pending_payout_value."],";}
+	}
+	}
+		
+		?>
+		   ]);
+
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+	var formatter = new google.visualization.PatternFormat(
+    '<a href="http://www.steemit.com{0}" target="_blank">{1}</a>');
+formatter.format(data, [0, 1, 2, 3, 4]);
+var view = new google.visualization.DataView(data);
+view.setColumns([0, 2, 3, 4]); // Create a view with the first column only.
+table.draw(view, {allowHtml: true, showRowNumber: true, width: '50%', height: '50%'});
+
+	  }
+    </script>
+
+       
+       
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -82,6 +137,8 @@ if(true){
 	
 	<?php
 	// Create the loop //
+				echo'<div id="table_div"></div><br><br>';
+
 	echo '
        <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
 
