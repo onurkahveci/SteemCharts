@@ -32,7 +32,6 @@ $btcdollar = floatval($btcdollar);
 
 <header>
   
-  
  <!--Load the AJAX API-->
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -58,6 +57,9 @@ $btcdollar = floatval($btcdollar);
 </nav>
 
 </header>
+<div class="alert alert-info">
+    Please consider <a href="https://steemconnect.com/sign/transfer?to=onurkahveci&amount=1%20SBD&memo=DonationForSteemCharts" target="_blank">donating</a> to help with the server costs.
+</div>
 <center>
 <nav class="navbar navbar-light bg-faded">
   <form  action="author.php" method="GET" class="form-inline">
