@@ -4,7 +4,7 @@
 
 - Language: PHP + JS
 
-- License: https://github.com/onurkahveci/SteemCharts/blob/master/LICENSE
+- <a href="https://github.com/onurkahveci/SteemCharts/blob/master/LICENSE">License</a>
 
 - Online at http://www.steemcharts.com
 
