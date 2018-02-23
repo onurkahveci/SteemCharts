@@ -260,11 +260,97 @@ if(!($pending_payout_value == "0.000 SBD"))
     </script>
 
 	
+    
+     <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+	     function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+		['Date', 'Upvotes', 'Comments'],
+	  <?php
+	  $tempvotes=0;
+	  $tempcomments=0;
+	  $created2 = $data[0]['created'];
+	  $arr = explode("T", $created2, 2);
+	  $y_m_d = $arr[0];
+	  $arr2 = explode("-", $y_m_d, 3);
+	  $tempyear = $arr2[0];
+	  $tempmonth = $arr2[1];
+	  $tempdate = $arr2[2];
+	  
+foreach ($data as $person1) {
+			$author = $person1['author'];
+
+		if($author==$meme){
+
+    $id1 = $person1['id'];
+    $url = $person1['url'];
+    $votes = $person1['net_votes'];
+    $children = $person1['children'];
+    $created = $person1['created'];
+	$arr = explode("T", $created, 2);
+	$y_m_d = $arr[0];
+	$arr2 = explode("-", $y_m_d, 3);
+	$year = $arr2[0];
+	$month = $arr2[1];
+	$date = $arr2[2];
+	
+	if ( $tempyear == $year and $tempmonth == $month and $tempdate == $date )
+		
+	{
+	$tempvotes+= intval($votes);
+	$tempcomments+= intval($children);
+	
+	}
+	
+	else
+	{
+				echo "['".$tempmonth."/".$tempdate."/".$tempyear."', ".$tempvotes.", ".$tempcomments."],";
+	
+	$tempvotes = $votes;
+	$tempcomments = $children;
+	$tempyear = $year;
+	$tempmonth = $month;
+	$tempdate = $date;
+	}
+
+	
+	$tempyear = $year;
+	$tempmonth = $month;
+	$tempdate == $date;
+	
+	}
+	}?>
+
+        ]);
+
+        var options = {
+          title: 'Daily Comments & Upvotes Chart',
+          curveType: 'discrete',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
 	<?php
 	echo'<div id="table_div"></div><br><br>';
 	echo '<div id="columnchart_material" style="width: 80%; height: 500px;"></div><br><br>';
 	echo '<div id="columnchart_material2" style="width: 80%; height: 500px;"></div><br><br>';
 	echo '<div id="columnchart_material3" style="width: 80%; height: 500px;"></div><br><br>';
+	echo '<div id="curve_chart" style="width: 80%; height: 500px;"></div><br><br>';
+	
 	}
     } 
+
 ?>
