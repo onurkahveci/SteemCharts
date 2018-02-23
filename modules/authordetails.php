@@ -134,16 +134,137 @@ table.draw(view, {allowHtml: true, showRowNumber: true, width: '80%', height: '4
 	  }
     </script>
 
+
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Post', 'Upvotes'],
+          <?php
+	// Create the loop //
+	foreach ($data as $person1) {
+			$author = $person1['author'];
+
+		if($author==$meme){
+
+    $id1 = $person1['id'];
+    $url = $person1['url'];
+	$upvotes = $person1['net_votes'];
+ echo "['".$url."', ".$upvotes."],";
+	}
+	}
+		
+		?>
+        ]);
+
+        var options2 = {
+            title: 'Number of Upvotes',
+            subtitle: 'Charts of Number of Upvotes for Last Posts',
+			hAxis:{textStyle : {
+            fontSize: 0 }},
+			colors: ['darkred']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material2'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options2));
+      
+	   google.visualization.events.addListener(chart, 'select', selectHandler); 
+
+    function selectHandler(e)     {  
+	
+	if(data.getValue(chart.getSelection()[0].row, 0).length > 0)
+	
+	{
+		
+		urllast = 'http://www.steemit.com'+data.getValue(chart.getSelection()[0].row, 0);
+		
+		window.open(urllast,'_blank');
+		}
+	
+	
+	}
+	  }
+    </script>
+
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Post', 'Payout Values'],
+          <?php
+	// Create the loop //
+	foreach ($data as $person1) {
+			$author = $person1['author'];
+			$totalpayoutvalue = $person1['total_payout_value'];
+    		$pending_payout_value = $person1['pending_payout_value'];
+	$total_amount_of_payout_value = str_replace(" SBD", "", $person1["total_payout_value"]);
+	$total_amount_of_pending_payout_value = str_replace(" SBD", "", $person1["pending_payout_value"]);
+	
+if($pending_payout_value == "0.000 SBD")
+{}
+if(!($pending_payout_value == "0.000 SBD"))
+{}
+
+
+
+
+
+		if($author==$meme){
+
+    $id1 = $person1['id'];
+    $url = $person1['url'];
+	$upvotes = $person1['net_votes'];
+ if(!($pending_payout_value == "0.000 SBD"))
+{echo "['".$url."', ".$total_amount_of_pending_payout_value."],";}
+ if($pending_payout_value == "0.000 SBD")
+{echo "['".$url."', ".$total_amount_of_payout_value."],";}
+	}
+	}
+		
+		?>
+        ]);
+
+        var options3 = {
+            title: 'Total Payout Values',
+            subtitle: 'Total Payout Values (Paid and Pending) in SBD',
+			hAxis:{textStyle : {
+            fontSize: 0 }},
+			colors: ['darkgreen']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material3'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options3));
+      
+	   google.visualization.events.addListener(chart, 'select', selectHandler); 
+
+    function selectHandler(e)     {  
+	
+	if(data.getValue(chart.getSelection()[0].row, 0).length > 0)
+	
+	{
+		
+		urllast = 'http://www.steemit.com'+data.getValue(chart.getSelection()[0].row, 0);
+		
+		window.open(urllast,'_blank');
+		}
+	
+	
+	}
+	  }
+    </script>
+
 	
 	<?php
-	// Create the loop //
-				echo'<div id="table_div"></div><br><br>';
-
-	echo '
-       <div id="columnchart_material" style="width: 80%; height: 500px;"></div>
-
-
-';
+	echo'<div id="table_div"></div><br><br>';
+	echo '<div id="columnchart_material" style="width: 80%; height: 500px;"></div><br><br>';
+	echo '<div id="columnchart_material2" style="width: 80%; height: 500px;"></div><br><br>';
+	echo '<div id="columnchart_material3" style="width: 80%; height: 500px;"></div><br><br>';
 	}
     } 
 ?>
